@@ -1,5 +1,5 @@
 from splinter import Browser
-
+import re
 
 class PinterestCrawler(object):
 
@@ -24,3 +24,18 @@ class PinterestCrawler(object):
 		emailPassword.fill(password_input)
 		return loginButton.click()
 
+	def clickfollow(self, url):
+		self.navigator.visit(url)
+		css_path = 'div.App.AppBase.Module.full > div.appContent > div.mainContainer > div.Module.UserProfilePage > div.Module.UserProfileContent > div > div > child(1) > div > button'
+		for child in css_path:
+			number = re.findall('[0-9+]', css_path)
+			child = number.pop(0)
+			new_child = int(child)
+			while new_child <= 50:
+				self.navigator.find_by_css(css_path)[0].click()
+				new_child +=1
+				css_path.replace(child, str(new_child))
+			else: break
+
+
+#body > div.App.AppBase.Module.full > div.appContent > div.mainContainer > div.Module.UserProfilePage > div.Module.UserProfileContent > div > div >
