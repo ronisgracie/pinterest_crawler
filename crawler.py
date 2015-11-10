@@ -22,11 +22,12 @@ class PinterestCrawler(object):
 
         emaillogin.fill(email_input)
         emailpassword.fill(password_input)
+        time.sleep(random.randint(2, 6))
         return loginbutton.click()
 
     def clickfollow(self, url):
         self.navigator.visit(url)
-        time.sleep(3)
+        time.sleep(6)
         self.navigator.execute_script(
             'window.scrollTo(50,document.body.scrollHeight);')
 
@@ -34,15 +35,16 @@ class PinterestCrawler(object):
         new_child = 1
         while new_child <= 50:
             css_path2 = css_path.format(new_child)
+            time.sleep(2)
             self.navigator.find_by_css(css_path2)[0].click()
             new_child += 1
             time.sleep(random.randint(3, 12))
 
     def main(self):
         self.navigator.visit(self.url)
-        self.login_to_pinterest('', '')
+        self.login_to_pinterest('graciewestwood@gmail.com', 'blackhouse123')
 
-        self.clickfollow('https://www.pinterest.com/ntmcats/followers/')
+        self.clickfollow('https://www.pinterest.com/PaleoLivingMag/followers/')
 
 start = PinterestCrawler('http://www.pinterest.com/login/')
 
